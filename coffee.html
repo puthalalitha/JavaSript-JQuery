@@ -76,9 +76,14 @@
 let coffeeImage = $('#coffee-image');
 
 coffeeImage.attr('src','static/coffee_beans.jpg');
+    let drinksOrdered = [];
 
 
-function makeCoffee() {
+function makeCoffee(drinkType) {
+
+    drinksOrdered.push(drinkType);
+    console.log(drinksOrdered);
+
 coffeeImage.attr('src', 'static/coffee_mug.jpg');
 
 setTimeout(function() {
@@ -86,13 +91,25 @@ setTimeout(function() {
 setTimeout(function() {
     coffeeImage.attr('src', 'static/coffee_mug.jpg')}, 4000);
 setTimeout(function() {
-    coffeeImage.attr$('#coffee-image').attr('src', 'static/coffee_beans.jpg')}, 6000);
+    coffeeImage.attr('src', 'static/coffee_beans.jpg')}, 6000);
+
+result = revenue(drinksOrdered,prices);
+console.log(result);
+
 }
 
-coffeeImage.on('click', makeCoffee);
+coffeeImage.on('click', function() {makeCoffee('brew');});
+
+let espresso = $("#espresso");
+let latte = $("#latte");
+let hotChocolate = $("#hot-chocolate");
+
+espresso.on('click', function() {makeCoffee('espresso');});
+latte.on('click', function() {makeCoffee('latte');});
+hotChocolate.on('click', function() {makeCoffee('hot-chocolate');});
 
 
-let revenueMessage;
+let revenueMessage = $('#revenue');
 
 // use this JavaScript object in further study step
 
@@ -100,9 +117,20 @@ const prices = {
 "brew": 2.05,
 "espresso": 3.25,
 "latte": 4.15,
-"hot chocolate": 2.50
+"hot-chocolate": 2.50
 };
 
+function revenue(drinksOrdered, prices) {
+    let total = 0;
+
+    for (let drink of drinksOrdered) {
+        
+        total += prices[drink];
+        
+    }
+    console.log(total);
+    return total;
+}
 
 </script>
 
